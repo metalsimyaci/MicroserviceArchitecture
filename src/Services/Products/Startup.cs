@@ -14,28 +14,39 @@ namespace ESourcing.Products
 {
     public class Startup
     {
+	    private IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region Configuration Dependencies
 
-            services.AddControllers();
-            var settings = Configuration.GetSection(nameof(ProductDatabaseSettings));
-            services.Configure<ProductDatabaseSettings>(settings);
+            services.Configure<ProductDatabaseSettings>(Configuration.GetSection(nameof(ProductDatabaseSettings)));
             services.AddSingleton<IProductDatabaseSettings>(sp => sp.GetRequiredService<IOptions<ProductDatabaseSettings>>().Value);
+
+            #endregion
+
+            #region Project Dependencies
+
             services.AddTransient<IProductContext, ProductContext>();
             services.AddTransient<IProductRepository, ProductRepository>();
 
+            #endregion
+
+            #region Swagger Dependencies
+
+            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ESourcing.Products", Version = "v1" });
+	            c.SwaggerDoc("v1", new OpenApiInfo { Title = "ESourcing.Products", Version = "v1" });
             });
+
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
