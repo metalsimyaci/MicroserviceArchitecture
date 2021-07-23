@@ -26,7 +26,8 @@ namespace ESourcing.Products
         {
 
             services.AddControllers();
-            services.Configure<IProductDatabaseSettings>(Configuration.GetSection(nameof(ProductDatabaseSettings)));
+            var settings = Configuration.GetSection(nameof(ProductDatabaseSettings));
+            services.Configure<ProductDatabaseSettings>(settings);
             services.AddSingleton<IProductDatabaseSettings>(sp => sp.GetRequiredService<IOptions<ProductDatabaseSettings>>().Value);
             services.AddTransient<IProductContext, ProductContext>();
             services.AddTransient<IProductRepository, ProductRepository>();
