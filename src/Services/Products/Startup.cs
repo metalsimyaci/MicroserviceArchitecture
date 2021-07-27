@@ -26,7 +26,9 @@ namespace ESourcing.Products
         {
             #region Configuration Dependencies
 
-            services.Configure<ProductDatabaseSettings>(Configuration.GetSection(nameof(ProductDatabaseSettings)));
+            var config = Configuration.GetSection(nameof(ProductDatabaseSettings));
+
+			services.Configure<ProductDatabaseSettings>(config);
             services.AddSingleton<IProductDatabaseSettings>(sp => sp.GetRequiredService<IOptions<ProductDatabaseSettings>>().Value);
 
             #endregion
