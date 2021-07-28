@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 
 namespace ESourcing.Sourcing
 {
@@ -31,6 +32,10 @@ namespace ESourcing.Sourcing
 	        services.AddTransient<IBidRepository, BidRepository>();
             
 	        services.AddControllers();
+	        services.AddSwaggerGen(s =>
+	        {
+		        s.SwaggerDoc("v1", new OpenApiInfo {Title = "ESourcing.Sourcing", Version = "v1"});
+	        });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -38,6 +43,8 @@ namespace ESourcing.Sourcing
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(o => o.SwaggerEndpoint("/swagger/v1/swagger.json", "Sourcing API V1"));
             }
 
             app.UseRouting();

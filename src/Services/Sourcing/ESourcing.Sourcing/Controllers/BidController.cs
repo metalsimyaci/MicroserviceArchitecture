@@ -19,19 +19,27 @@ namespace ESourcing.Sourcing.Controllers
 		}
 
 		[HttpPost]
-		[ProducesResponseType(typeof(Bid), (int)HttpStatusCode.Created)]
+		[ProducesResponseType((int)HttpStatusCode.Created)]
 		public async Task<ActionResult<Bid>> SendBid([FromBody] Bid bid)
 		{
 			await _bidRepository.SendBid(bid);
-			return CreatedAtRoute("GetAuction", new { id = bid.Id }, bid);
+			return Ok();
 		}
 
-		[HttpGet("{id:length(24)}")]
+		[HttpGet("{id:length(24)}",Name="GetBidsByAuctionId")]
 		[ProducesResponseType(typeof(IEnumerable<Bid>), (int)HttpStatusCode.OK)]
 		public async Task<ActionResult<IEnumerable<Bid>>> GetBidsByAuctionId(string id)
 		{
-			var auctions = await _bidRepository.GetBidsByAuctionId(id);
-			return Ok(auctions);
+			var bids = await _bidRepository.GetBidsByAuctionId(id);
+			return Ok(bids);
+		}
+		
+		[HttpGet("{id:length(24)}",Name = "GetWinnerBid")]
+		[ProducesResponseType(typeof(Bid), (int)HttpStatusCode.OK)]
+		public async Task<ActionResult<Bid>> GetWinnerBid(string id)
+		{
+			var bid = await _bidRepository.GetWinnerBid(id);
+			return Ok(bid);
 		}
 	}
 }
