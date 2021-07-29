@@ -6,10 +6,11 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["Services/Sourcing/ESourcing.Sourcing/ESourcing.Sourcing.csproj", "Services/Sourcing/ESourcing.Sourcing/"]
-RUN dotnet restore "Services/Sourcing/ESourcing.Sourcing/ESourcing.Sourcing.csproj"
+COPY ["Services/Sourcing/ESourcing.Sourcing.csproj", "Services/Sourcing/"]
+COPY ["Services/Common/EventBusRabbitMq.csproj", "Services/Common/"]
+RUN dotnet restore "Services/Sourcing/ESourcing.Sourcing.csproj"
 COPY . .
-WORKDIR "/src/Services/Sourcing/ESourcing.Sourcing"
+WORKDIR "/src/Services/Sourcing"
 RUN dotnet build "ESourcing.Sourcing.csproj" -c Release -o /app/build
 
 FROM build AS publish

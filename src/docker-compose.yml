@@ -3,6 +3,10 @@ version: '3.4'
 services:
   sourcingdb:
     image: mongo
+
+  rabbitmq:
+    image: rabbitmq:3-management
+
   esourcing.products:
     image: ${DOCKER_REGISTRY-}esourcingproducts
     build:
@@ -13,5 +17,5 @@ services:
     image: ${DOCKER_REGISTRY-}esourcingsourcing
     build:
       context: .
-      dockerfile: Services/Sourcing/ESourcing.Sourcing/Dockerfile
+      dockerfile: Services/Sourcing/Dockerfile
 
