@@ -6,7 +6,7 @@
     <ProjectGuid>d6bb0c2a-0d02-4e42-a7e2-10094a353577</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>esourcing.products</DockerServiceName>
+    <DockerServiceName>esourcing.sourcing</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
