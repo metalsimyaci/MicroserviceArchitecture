@@ -1,15 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using AutoMapper;
 using EventBusRabbitMq;
 using EventBusRabbitMq.Core;
 using EventBusRabbitMq.Events;
 using MediatR;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using Ordering.Application.Commands.OrderCreate;
 using RabbitMQ.Client.Events;
 
@@ -40,12 +36,12 @@ namespace ESourcing.Order.Consumers
 
 			var consumer = new EventingBasicConsumer(channel);
 
-			consumer.Received += RecivedEvent;
+			consumer.Received += ReceivedEvent;
 			channel.BasicConsume(queue: EventBusConstants.ORDER_CREATE_QUEUE, autoAck: true, consumer: consumer, consumerTag: "", noLocal: false,
 				exclusive: false, arguments: null);
 		}
 
-		private async void RecivedEvent(object sender, BasicDeliverEventArgs e)
+		private async void ReceivedEvent(object sender, BasicDeliverEventArgs e)
 		{
 			var message = Encoding.UTF8.GetString(e.Body.Span);
 			var @event = JsonSerializer.Deserialize<OrderCreateEvent>(message);

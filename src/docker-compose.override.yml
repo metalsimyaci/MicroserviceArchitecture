@@ -22,7 +22,7 @@ services:
     ports:
       - "1633:1433"
     environment:
-      SA_PASSWORD: "!SqlDb"
+      SA_PASSWORD: "!D0ck3rsql."
       ACCEPT_EULA: "Y"
 
   esourcing.products:

@@ -1,7 +1,6 @@
 using ESourcing.Order.Consumers;
 using ESourcing.Order.Extensions;
 using EventBusRabbitMq;
-using EventBusRabbitMq.Producer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +31,7 @@ namespace ESourcing.Order
 
             #region Swagger Dependencies
 
-            services.AddSwaggerGen(x => x.SwaggerDoc("v1", new OpenApiInfo() {Title = "Order API", Version = "v1"}));
+            services.AddSwaggerGen(x => x.SwaggerDoc("v1", new OpenApiInfo() {Title = "ESourcing.Order", Version = "v1"}));
 
 			#endregion
 
@@ -76,7 +75,7 @@ namespace ESourcing.Order
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("swagger/v1/swagger.json", "Order API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Order API v1"));
             }
 
             app.UseEventBusListener();
