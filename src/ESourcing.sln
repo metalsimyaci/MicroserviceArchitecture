@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Application", "Ser
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Infrastructure", "Services\Order\Ordering.Infrastructure\Ordering.Infrastructure.csproj", "{3FA1F532-FF5F-436A-BAFD-EB87035F00F8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateWay", "ApiGateWay", "{A478C3A3-407B-45EF-AA85-350B89160407}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{A478C3A3-407B-45EF-AA85-350B89160407}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESourcing.ApiGateway", "ApiGateway\ESourcing.ApiGateway\ESourcing.ApiGateway.csproj", "{47311315-F4A4-473A-BA04-7DA769B3A421}"
 EndProject
