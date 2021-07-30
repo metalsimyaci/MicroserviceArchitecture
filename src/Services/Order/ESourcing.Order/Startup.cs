@@ -29,6 +29,8 @@ namespace ESourcing.Order
 	        services.AddApplication();
             services.AddControllers();
 
+            services.AddAutoMapper(typeof(Startup));
+
             #region Swagger Dependencies
 
             services.AddSwaggerGen(x => x.SwaggerDoc("v1", new OpenApiInfo() {Title = "ESourcing.Order", Version = "v1"}));
