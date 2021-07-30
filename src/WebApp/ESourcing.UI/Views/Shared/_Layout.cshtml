@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width"/>
+		<title>@ViewBag.Title</title>
+	</head>
+	<body>
+	
+		<nav>
+			<ul>
+				<li><a asp-action="Index">Home</a></li>
+			</ul>
+		</nav>
+	
+		<section>
+			@RenderBody()
+		</section>
+		<footer>&copy;copy 2021 KAOS.co</footer>
+	</body>
+</html>
