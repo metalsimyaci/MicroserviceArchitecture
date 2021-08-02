@@ -10,6 +10,7 @@ namespace Ordering.Infrastructure.Extensions
 {
 	public static class DependencyInjectionExtension
 	{
+		private const string CONNECTION_STRING_NAME = "OrderConnection";
 		public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
 		{
 			//services.AddDbContext<OrderContext>(
@@ -18,7 +19,7 @@ namespace Ordering.Infrastructure.Extensions
 			//	ServiceLifetime.Singleton);
 
 			services.AddDbContext<OrderContext>(
-				o => o.UseSqlServer(configuration.GetConnectionString("OrderConnection"),
+				o => o.UseSqlServer(configuration.GetConnectionString(CONNECTION_STRING_NAME),
 					b => b.MigrationsAssembly(typeof(OrderContext).Assembly.FullName)), ServiceLifetime.Singleton);
 
 			services.AddTransient(typeof(IRepository<>), typeof(Repository<>));

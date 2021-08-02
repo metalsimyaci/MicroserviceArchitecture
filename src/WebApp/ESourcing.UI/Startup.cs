@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ESourcing.Infrastructure.Extensions;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -22,8 +24,24 @@ namespace ESourcing.UI
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddInfrastructure(Configuration);
 			services.AddMvc();
 			services.AddControllersWithViews();
+
+			//services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+			//	.AddCookie(op =>
+			//{
+			//	op.Cookie.Name = "DestCookie";
+			//	op.LoginPath = "Home/Login";
+			//	op.LogoutPath = "Home/Logout";
+			//	op.ExpireTimeSpan = TimeSpan.FromDays(3);
+			//	op.SlidingExpiration = false;
+			//});
+			services.ConfigureApplicationCookie(op =>
+			{
+				op.LoginPath = $"/Home/Login";
+				op.LogoutPath = $"/Home/Logout";
+			});
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
