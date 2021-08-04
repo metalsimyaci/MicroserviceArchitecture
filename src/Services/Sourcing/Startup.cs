@@ -1,5 +1,6 @@
 using ESourcing.Sourcing.Data;
 using ESourcing.Sourcing.Data.Interface;
+using ESourcing.Sourcing.Hubs;
 using ESourcing.Sourcing.Repositories;
 using ESourcing.Sourcing.Repositories.Interfaces;
 using ESourcing.Sourcing.Settings;
@@ -86,6 +87,8 @@ namespace ESourcing.Sourcing
 			services.AddSingleton<EventBusRabbitMqProducer>();
 
 			#endregion
+
+			services.AddSignalR();
 	    }
 
 	    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -98,11 +101,12 @@ namespace ESourcing.Sourcing
             }
 
             app.UseRouting();
-
+			
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+	            endpoints.MapHub<AuctionHub>("/auctionhub");
                 endpoints.MapControllers();
             });
         }

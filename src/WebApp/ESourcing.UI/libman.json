@@ -21,6 +21,10 @@
     {
       "library": "popper.js@2.9.2",
       "destination": "wwwroot/lib/popper.js/"
+    },
+    {
+      "library": "microsoft-signalr@5.0.8",
+      "destination": "wwwroot/lib/microsoft-signalr/"
     }
   ]
 }

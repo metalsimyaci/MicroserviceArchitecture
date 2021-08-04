@@ -23,12 +23,12 @@ namespace ESourcing.UI.Clients
 		public async Task<Result<List<ProductViewModel>>> GetProducts()
 		{
 			var response = await _client.GetAsync("/Product");
-			if (!response.IsSuccessStatusCode) return new Result<List<ProductViewModel>>(false, ResultConstant.RecordNotFound);
+			if (!response.IsSuccessStatusCode) return new Result<List<ProductViewModel>>(false, ResultConstant.RECORD_NOT_FOUND);
 			var responseData = await response.Content.ReadAsStringAsync();
 			var result = JsonSerializer.Deserialize<List<ProductViewModel>>(responseData);
 			return result?.Any() ?? false
-				? new Result<List<ProductViewModel>>(true, ResultConstant.RecordFound, result.ToList())
-				: new Result<List<ProductViewModel>>(false, ResultConstant.RecordNotFound);
+				? new Result<List<ProductViewModel>>(true, ResultConstant.RECORD_FOUND, result.ToList())
+				: new Result<List<ProductViewModel>>(false, ResultConstant.RECORD_NOT_FOUND);
 		}
 	}
 }

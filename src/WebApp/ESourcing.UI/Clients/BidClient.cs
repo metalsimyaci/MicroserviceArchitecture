@@ -24,13 +24,13 @@ namespace ESourcing.UI.Clients
 		{
 			var response = await _client.GetAsync("/Bid/GetAllBidsByAuctionId?id=" + id);
 			if (!response.IsSuccessStatusCode) 
-				return new Result<List<BidViewModel>>(false, ResultConstant.RecordNotFound);
+				return new Result<List<BidViewModel>>(false, ResultConstant.RECORD_NOT_FOUND);
 			
 			var responseData = await response.Content.ReadAsStringAsync();
 			var result = JsonConvert.DeserializeObject<List<BidViewModel>>(responseData);
 			return result.Any() 
-				? new Result<List<BidViewModel>>(true, ResultConstant.RecordFound, result.ToList()) 
-				: new Result<List<BidViewModel>>(false, ResultConstant.RecordNotFound);
+				? new Result<List<BidViewModel>>(true, ResultConstant.RECORD_FOUND, result.ToList()) 
+				: new Result<List<BidViewModel>>(false, ResultConstant.RECORD_NOT_FOUND);
 		}
 
 		public async Task<Result<string>> SendBid(BidViewModel model)
@@ -41,10 +41,10 @@ namespace ESourcing.UI.Clients
 			
 			var response = await _client.PostAsync("/Bid", content);
 			if (!response.IsSuccessStatusCode) 
-				return new Result<string>(false, ResultConstant.RecordCreateNotSuccessfully);
+				return new Result<string>(false, ResultConstant.RECORD_CREATE_NOT_SUCCESSFULLY);
 			
 			var responseData = await response.Content.ReadAsStringAsync();
-			return new Result<string>(true, ResultConstant.RecordCreateSuccessfully, responseData);
+			return new Result<string>(true, ResultConstant.RECORD_CREATE_SUCCESSFULLY, responseData);
 		}
 	}
 }

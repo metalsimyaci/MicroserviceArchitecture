@@ -1,13 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ESourcing.Infrastructure.Extensions;
 using ESourcing.UI.Clients;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -48,6 +43,16 @@ namespace ESourcing.UI
 				op.LoginPath = $"/Home/Login";
 				op.LogoutPath = $"/Home/Logout";
 			});
+
+			services.AddSession(opt =>
+			{
+				opt.IdleTimeout = TimeSpan.FromMinutes(20);
+			});
+
+			services.AddCors(o => o.AddPolicy("CorsPolicy", b =>
+			{
+				b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials().WithOrigins("http://localhost:29263");
+			}));
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -66,10 +71,10 @@ namespace ESourcing.UI
 			app.UseStaticFiles();
 
 			app.UseRouting();
-
+			app.UseCors("CorsPolicy");
 			app.UseAuthorization();
 			app.UseAuthentication();
-
+			app.UseSession();
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllerRoute(
