@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ESourcing.Infrastructure.Extensions;
+using ESourcing.UI.Clients;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +28,11 @@ namespace ESourcing.UI
 			services.AddInfrastructure(Configuration);
 			services.AddMvc();
 			services.AddControllersWithViews();
+
+			services.AddHttpClient();
+			services.AddHttpClient<ProductClient>();
+			services.AddHttpClient<AuctionClient>();
+			services.AddHttpClient<BidClient>();
 
 			//services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 			//	.AddCookie(op =>
@@ -62,7 +68,8 @@ namespace ESourcing.UI
 			app.UseRouting();
 
 			app.UseAuthorization();
-			
+			app.UseAuthentication();
+
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllerRoute(

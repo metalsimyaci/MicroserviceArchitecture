@@ -1,5 +1,8 @@
 using ESourcing.Core.Entities;
+using ESourcing.Core.Repositories.Abstract;
 using ESourcing.Infrastructure.Data;
+using ESourcing.Infrastructure.Repositories;
+using ESourcing.Infrastructure.Repositories.Abstract;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +26,11 @@ namespace ESourcing.Infrastructure.Extensions
 				op.Password.RequireUppercase = false;
 				op.Password.RequireDigit = false;
 			}).AddDefaultTokenProviders().AddEntityFrameworkStores<WebAppContext>();
+
+
+			services.AddTransient(typeof(IRepository<>),typeof(RepositoryBase<>));
+			services.AddTransient<IUserRepository,UserRepository>();
+
 			return services;
 		}
 	}

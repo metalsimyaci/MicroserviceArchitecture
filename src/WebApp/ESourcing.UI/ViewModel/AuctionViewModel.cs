@@ -6,8 +6,12 @@ namespace ESourcing.UI.ViewModel
 {
 	public class AuctionViewModel
 	{
+		public AuctionViewModel()
+		{
+			IncludedSellers = new List<string>();
+		}
 
-		public int Id { get; set; }
+		public string Id { get; set; }
 
 		[Required(ErrorMessage = "Please fill Name")]
 		public string Name { get; set; }
@@ -29,7 +33,7 @@ namespace ESourcing.UI.ViewModel
 
 		public DateTime CreatedAt { get; set; }
 		public int Status { get; set; }
-		public int SellerId { get; set; }
+		public string SellerId { get; set; }
 		public List<string> IncludedSellers { get; set; }
 
 	}

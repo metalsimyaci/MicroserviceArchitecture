@@ -8,4 +8,8 @@
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.8" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="ResultModels\Abstract\" />
+    </ItemGroup>
+
 </Project>
